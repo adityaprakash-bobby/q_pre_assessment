@@ -1,5 +1,7 @@
 # Pre Assessment
 
+### AWS
+
 1. Create IAM Policy which grants access to S3 bucket Only.
 ```json
 {
@@ -97,3 +99,28 @@
       - Use 10.0.1.0/24 for Public subnet's CIDR
       - Provide a name for your Private subnet
       - Click on **Create VPC**      
+
+### Linux
+
+1. Use the following to get exact matches of `$WORD` in file `$FILENAME`.
+```bash
+grep $WORD $FILENAME -cow
+```
+2. Search for all the files that have a ‘.txt’ extension in the current working directory:
+```
+find *.txt
+```
+3. Execute a specific command in all the subdirectories whose names starts with “aws”. For example, your sub-directories are “aws_1”, “aws_2”, “gcp_1”, “aws_3”., Execute “pwd” command in the directories “aws_1”, “aws_2” and “aws_3”
+```bash
+#!/usr/bin/sh
+ 
+for d in `find . -type d -name "aws*"`
+do
+    ( cd $d && pwd )
+done
+```
+
+4. Replace all occurences of a word of choice with another word:
+```bash
+WORD1=<word-to-replace> WORD2=<replacing-word> sed 's/$WORD1/$WORD2/g' <input-file>.txt > <output-file>.txt
+```
