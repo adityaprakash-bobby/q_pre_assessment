@@ -48,4 +48,34 @@
     - Click on **Launch**
     - here, you will be prompted to download the key-pair associated with the instance (create a new, or use an existing one) for remote access. Download and store the `<key-pair>.pem` file for future EC2 access.
 
-4. 
+4. Hosting a static website with S3:
+  - Sign in to the AWS Management Console and open the Amazon S3 console at [https://console.aws.amazon.com/s3/](https://console.aws.amazon.com/s3/)
+  - Create a bucket
+  - Open the bucket Properties pane, choose Static Website Hosting, and do the following:
+    - Choose Use this bucket to host a website.
+    - In the Index Document box, type the name of your index document. The name is typically index.html.
+    - Choose Save to save the website configuration.
+    - Write down the Endpoint for later access.
+  - Editing Block Public Access Settings:
+    - Go the you buckets's permissions, click on **Block public access** section.
+    - Clear Block all public access, and choose Save. Type `confirm` of the prompt.
+  - Adding a Bucket Policy That Makes Your Bucket Content Publicly Available
+    - Go to permissions, choose **Bucket Policy**.
+    - Copy the following policy and paste in the policy editor
+    ```json
+    {
+       "Version":"2012-10-17",
+       "Statement":[{
+        "Sid":"PublicReadForGetBucketObjects",
+             "Effect":"Allow",
+          "Principal": "*",
+           "Action":["s3:GetObject"],
+           "Resource":["arn:aws:s3:::<bucket-name>/*"
+           ]
+         }
+       ]
+    }
+    ```
+    - Choose **Save**
+  - Upload a `index.html` file to your bucket with some content from the S3 management console.
+  - Visit your site on the  http://<bucket-name>.s3-website.<region-name>.amazonaws.com
