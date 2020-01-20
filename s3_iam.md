@@ -6,7 +6,7 @@
 [!log3](https://raw.githubusercontent.com/adityaprakash-bobby/q_pre_assessment/master/images/log_3.png)
 [!log4](https://raw.githubusercontent.com/adityaprakash-bobby/q_pre_assessment/master/images/log_4.png)
 
-2. 
+2. CORS for cors-audi.s3.amazonaws.com
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <CORSConfiguration xmlns="https://static-audi.s3.amazonaws.com/">
