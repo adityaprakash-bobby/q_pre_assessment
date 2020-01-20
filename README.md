@@ -82,7 +82,7 @@
   - Upload a `index.html` file to your bucket with some content from the S3 management console.
   - Visit your site on the  http://<bucket-name>.s3-website.<region-name>.amazonaws.com
 
-5.
+5. Steps to create public and private subnets in VPC
   - Create an Elastic IP Address for Your NAT Gateway
     - Open the Amazon VPC console at [https://console.aws.amazon.com/vpc/](https://console.aws.amazon.com/vpc/).
     - Select Elastic IPs from the side menu.
@@ -99,6 +99,32 @@
       - Use 10.0.1.0/24 for Public subnet's CIDR
       - Provide a name for your Private subnet
       - Click on **Create VPC**      
+
+### GCP
+
+1. Steps to create VPC and subnets
+  - Create network
+  ```bash
+  # We are using custom mode networking which has no subnets created by default
+  gcloud compute networks create NETWORK_NAME \
+    --subnet-mode=custom \
+    --bgp-routing-mode=DYNAMIC_ROUTING_MODE  
+  
+  # where NETWORK_NAME is a name for the VPC network and
+  # DYNAMIC_ROUTING_MODE can be either global or regional
+  ```
+  - Creating subnet:
+  ```bash
+  gcloud compute networks subnets create SUBNET_NAME \
+    --network=NETWORK \
+    --range=PRIMARY_RANGE \
+    --region=REGION
+    
+  # where SUBNET_NAME is a name for the new subnet.
+  # NETWORK is the name of the VPC network that will contain the new subnet.
+  # PRIMARY_RANGE is the primary IP range for the new subnet, in CIDR notation.
+  # REGION is the Google Cloud region in which the new subnet will be created.
+  ```
 
 ### Linux
 
