@@ -124,3 +124,10 @@ done
 ```bash
 WORD1=<word-to-replace> WORD2=<replacing-word> sed 's/$WORD1/$WORD2/g' <input-file>.txt > <output-file>.txt
 ```
+
+5. How to find a specific file in the system?
+  - use the command `find` a specific file in appropriate directory
+    ```bash
+    # for example to find 'aws.txt' file in the current directory will be:
+    find . -name "aws.txt"
+    ```
