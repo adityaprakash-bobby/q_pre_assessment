@@ -79,3 +79,21 @@
     - Choose **Save**
   - Upload a `index.html` file to your bucket with some content from the S3 management console.
   - Visit your site on the  http://<bucket-name>.s3-website.<region-name>.amazonaws.com
+
+5.
+  - Create an Elastic IP Address for Your NAT Gateway
+    - Open the Amazon VPC console at [https://console.aws.amazon.com/vpc/](https://console.aws.amazon.com/vpc/).
+    - Select Elastic IPs from the side menu.
+    - Choose **Allocate new address**, **Allocate**, **Close**.
+    - Note the `allocation ID`
+  - Run VPC wizard
+    - Go to the VPC dashboard
+    - Click on VPC Launch Wizard
+    - Choose **VPC with Public and Private Subnets**, **Select**
+      - Provide a unique VPC name.
+      - Mention the CIDR block for the VPC (default (ipv4): 10.0.0.0/16)
+      - Use 10.0.0.0/24 for Public subnet's CIDR
+      - Provide a name for your Public subnet
+      - Use 10.0.1.0/24 for Public subnet's CIDR
+      - Provide a name for your Private subnet
+      - Click on **Create VPC**      
