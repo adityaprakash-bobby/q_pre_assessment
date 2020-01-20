@@ -125,6 +125,23 @@
   # PRIMARY_RANGE is the primary IP range for the new subnet, in CIDR notation.
   # REGION is the Google Cloud region in which the new subnet will be created.
   ```
+2. Steps to create a service account and add IAM roles which grants access to GCE and GCS only:
+  - Creating a service account
+    - Create a project in the gcp console (if not any)
+    - In the top-left corner of the GCP console, click Menu
+    - Click IAM & Admin and then Service accounts.
+    - Click Create Service Account and in the Service account name field, enter a name for the service account.
+    - Click Create
+    - Click Continue and then Create Key.
+    - Ensure the key type is set to JSON and click Create
+    - Make a note of the location and name of this file
+    - Click Close and then Done.
+    - In the list of service accounts, click the email address that relates to the service account you created and click Edit.
+    - Click View Domain Wide Delegation Client ID.
+    - In the Product name for the consent screen field, enter a product name.
+    - Enter a new email if needed, Click Save.
+  
+
 
 ### Linux
 
