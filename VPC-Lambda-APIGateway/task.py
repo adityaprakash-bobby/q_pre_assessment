@@ -56,3 +56,78 @@ subnet_4 = ec2_client.create_subnet(
 # make subnet_1 and subnet_2 public and leave others private
 route_table.associate_with_subnet(SubnetId=subnet_1.get('Subnet').get('SubnetId'))
 route_table.associate_with_subnet(SubnetId=subnet_2.get('Subnet').get('SubnetId'))
+
+# allocate elastic IPs
+allocation = ec2_client.allocate_address(
+    Domain='vpc'|'standard'
+)
+
+# create NAT gateway
+nat_gw = ec2_client.create_nat_gateway(
+    AllocationId=allocation['AllocationId']
+    SubnetId=subnet_1['Subnet']['SubnetId']
+)
+
+# create a security group for instances in private subnet
+sec_group = ec2.create_security_group(
+    GroupName='ssh_http_sg',
+    Description='allow ssh http access',
+    VpcId=vpc.id
+)
+
+sec_data = ec2_client.authorize_security_group_ingress(
+    GroupId=sec_group.id,
+    IpPermissions=[
+        {'IpProtocol': 'tcp',
+            'FromPort': 80,
+            'ToPort': 80,
+            'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
+        },
+        {'IpProtocol': 'tcp',
+            'FromPort': 22,
+            'ToPort': 22,
+            'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
+        }
+    ]
+)
+
+# create security group for bastion host
+bastion_sec_group = ec2.create_security_group(
+    GroupName='ssh_bastion',
+    Description='allow ssh to bastion',
+    VpcId=vpc.id
+)
+
+bastion_sec_data = ec2_client.authorize_security_group_ingress(
+    GroupId=bastion_sec_group.id,
+    IpPermissions=[
+        {'IpProtocol': 'tcp',
+            'FromPort': 22,
+            'ToPort': 22,
+            'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
+        }
+    ]
+)
+
+# create bastion host
+bastion_host = ec2.create_instances(
+    ImageId='ami-062f7200baf2fa504',
+    MinCount=1,
+    MaxCount=1,
+    InstanceType='t2.micro',
+    SubnetId=subnet_1['Subnet']['SubnetId'],
+    SecurityGroups=[
+        bastion_sec_group.id,
+    ]
+)
+
+private_host = ec2.create_instances(
+    ImageId='ami-062f7200baf2fa504',
+    MinCount=1,
+    MaxCount=1,
+    InstanceType='t2.micro',
+    SubnetId=subnet_3['Subnet']['SubnetId'],
+    SecurityGroups=[
+        sec_group.id,
+    ]
+)
