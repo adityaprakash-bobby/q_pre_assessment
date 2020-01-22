@@ -4,7 +4,7 @@
 
 **Question:** Write python code to start, stop, create volume snap and terminate instance.
 
-**Solution:** [Link](https://github.com/adityaprakash-bobby/q_pre_assessment/blob/master/assessment_day2/task_1.py)
+**Solution:** [Link](https://github.com/adityaprakash-bobby/q_pre_assessment/blob/master/EC2-HA/task_1.py)
 
 #### Task 2
 **Question:** create 2 web server that are attached to single LB for fault tolerance. Use path based routing in order to route requests to the different services. (send screen shots of LB, Listner Rules, Sg of EC2, Browser output)
