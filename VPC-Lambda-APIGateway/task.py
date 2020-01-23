@@ -106,7 +106,7 @@ bastion_sec_data_ingress = ec2_client.authorize_security_group_ingress(
             'IpProtocol': 'tcp',
             'FromPort': 22,
             'ToPort': 22,
-            'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
+            'IpRanges': [{'CidrIp': '0.0.0.0/0'}] # best practice is to use your administrator's public ip ('My IP')
         }
     ]
 )
@@ -139,12 +139,6 @@ sec_data = ec2_client.authorize_security_group_ingress(
             'ToPort': 22,
             'IpRanges': [{'CidrIp': bastion_sec_group.id}]
         },
-        {
-            'CidrIp':'10.10.1.0/24',
-            'IpProtocol':'-1',
-            'FromPort':'-1',
-            'ToPort':'-1',
-        }
     ]
 )
 
